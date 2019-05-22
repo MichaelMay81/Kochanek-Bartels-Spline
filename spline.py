@@ -6,9 +6,6 @@ from typing import List, Tuple
 class Spline():
 
 	def __init__(self):
-		self.c = 0
-		self.b = 0
-		self.t = 0
 		self.ControlPoints = []
 		self.subpoints = []
 		
@@ -38,17 +35,16 @@ class Spline():
 				nearest = cp
 		return nearest, shortest
 
-	def DrawCurve(self):
+	def interpolate_curve(self, t: float, b: float, c: float, closed_loop: bool=True):
 		# calculate points
-		closed_loop = True
-		subpoints = Spline.interpolate(self.ControlPoints, self.t, self.c, self.b, closed_loop)
+		subpoints = Spline.interpolate(self.ControlPoints, t, b, c, closed_loop)
 
 		# round float values to int for screen pixel values
 		self.subpoints = [(int(round(x)), int(round(y))) for (x, y) in subpoints]
 		return self.subpoints
 
 	@staticmethod
-	def _calc_tangents_kochanek_bartel(control_points: List[Tuple[float, float]], t: float, c: float, b: float)\
+	def _calc_tangents_kochanek_bartel(control_points: List[Tuple[float, float]], t: float, b: float, c: float)\
 		-> Tuple[List[Tuple[float, float]], List[Tuple[float, float]]]:
 		"""
 		Tangents for Kochanek Bartel spline. Equal to Catmull Rom spline, if all parameters(t,c,b) are 0.
