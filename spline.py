@@ -155,6 +155,6 @@ class Spline():
 				final_lines.append((px, py))
 				t_iter += t_inc
 
-			final_lines.append((p1[0], p1[1]))
+		final_lines.append((p1[0], p1[1]))
 
 		return final_lines
