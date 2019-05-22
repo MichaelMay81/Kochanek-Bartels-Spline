@@ -91,7 +91,7 @@ def Draw(my_spline: spline.Spline, surface: pygame.Surface):
 	for cp in my_spline.ControlPoints:
 		pygame.draw.circle(surface, (255, 0, 0), (int(cp[0]), int(cp[1])), 2)
 
-	finalpoints = my_spline.interpolate_curve(tension, continuity, bias)
+	finalpoints = my_spline.interpolate_curve(tension, bias, continuity)
 	pygame.draw.aalines(surface, (255, 255, 255), False, finalpoints)
 
 	pygame.display.flip()
