@@ -33,15 +33,15 @@ def GetInput(my_spline):
 		elif key[K_t]:
 			tension += 0.1
 			if tension > 1:
-				tension = 0.0
+				tension = -1.0
 		elif key[K_b]:
 			bias += 0.1
 			if bias > 1:
-				bias = 0.0
+				bias = -1.0
 		elif key[K_c]:
 			continuity += 0.1
 			if continuity > 1:
-				continuity = 0.0
+				continuity = -1.0
 
 
 	if mpress[0]:
@@ -91,7 +91,7 @@ def Draw(my_spline: spline.Spline, surface: pygame.Surface):
 	for cp in my_spline.ControlPoints:
 		pygame.draw.circle(surface, (255, 0, 0), (int(cp[0]), int(cp[1])), 2)
 
-	finalpoints = my_spline.interpolate_curve(tension, bias, continuity)
+	finalpoints = my_spline.interpolate_curve(tension, bias, continuity, False)
 	pygame.draw.aalines(surface, (255, 255, 255), False, finalpoints)
 
 	pygame.display.flip()
